@@ -1,0 +1,136 @@
+create database dbprj;
+use dbprj;
+
+create table user (
+    userid int(4) not null,
+    name varchar(20),
+    deptid int(2),
+    address varchar(30),
+    city varchar(15),
+    state varchar(15),
+    age int(3),
+    contactno bigint(11),
+    roleid int(1),
+    primary key(userid));
+
+create table student (
+    regno int(10) not null,
+    userid int(4),
+    semester int(2),
+    primary key(regno));
+
+create table staff (
+    staffid int(10) not null,
+    userid int(4),
+    salary int(10),
+    primary key(staffid));
+
+create table department (
+    deptid int(2) not null,
+    department varchar(20),
+    hod varchar(20),
+    staffid int(10),
+    contact_number bigint(10),
+    primary key(deptid));
+
+create table attendance (
+    attendanceid bigint(14) not null,
+    userid int(4),
+    year int(4), 
+    month int(2), 
+    date int(4), 
+    hoursin int(2), 
+    minutesin int(2), 
+    secin int(2),
+    hoursout int(2), 
+    minutesout int(2), 
+    secout int(2),
+    primary key(attendanceid));
+
+create table leaverecord (
+    leaveid int(3) not null auto_increment,
+    userid int(4),
+    name varchar(20),
+    days int(2),
+    year int(4), 
+    month int(2), 
+    date int(4),
+    primary key(leaveid));
+
+create table login (
+    loginid int(10) not null,
+    password varchar(10),
+    primary key(loginid));
+
+create table attend (
+    attendanceid bigint(14) not null,
+    userid int(4),
+    year int(4), 
+    month int(2), 
+    date int(4), 
+    intime time(3),
+    outtime time(3) ,
+    primary key(attendanceid));
+
+create table leaverec (
+    leaveid int(3) not null auto_increment,
+    userid int(4),
+    name varchar(20),
+    days int(2),
+    datestart date,
+    rectime time(3),
+    primary key(leaveid));
+
+ALTER TABLE user
+ADD FOREIGN KEY (deptid) REFERENCES department(deptid);
+
+ALTER TABLE student
+ADD FOREIGN KEY (userid) REFERENCES user(userid);
+
+ALTER TABLE staff
+ADD FOREIGN KEY (userid) REFERENCES user(userid);
+
+ALTER TABLE attendance
+ADD FOREIGN KEY (userid) REFERENCES user(userid);
+
+ALTER TABLE leaverecord
+ADD FOREIGN KEY (userid) REFERENCES user(userid);
+
+ALTER TABLE login
+ADD FOREIGN KEY (loginid) REFERENCES user(userid);
+
+insert into user values (1001,'Abishek',10,'32, New Street,Adyar','Chennai','Tamil Nadu',19,9727974628,1);
+insert into user values (1002,'Abinav',12,'3, Super Street,Chrompet','Chennai','Tamil Nadu',40,9163781981,2);
+insert into user values (1003,'Devdutt',11,'7, GS Street,Madipakkam','Chennai','Tamil Nadu',20,8903403383,1);
+insert into user values (1004,'Gowri',11,'4, SI Street,GR','Chennai','Tamil Nadu',20,8825723971,1);
+insert into user values (1005,'Chris',11,'12, Fighter Street,Avadi','Chennai','Tamil Nadu',35,9174628372,2);
+insert into user values (1006,'Scott McCall',13,'1, Argent Street,Mount','Chennai','Tamil Nadu',21,8126378237,1);
+insert into user values (1007,'Allison',12,'19,Alpha Street,Adambakkam','Chennai','Tamil Nadu',21,9973694729,1);
+insert into user values (1008,'Stiles',13,'5,Sarcas Street,Adyar','Chennai','Tamil Nadu',25,7252791229,2);
+insert into user values (1009,'Lydia',10,'96,Banshee Street,Mount','Chennai','Tamil Nadu',25,9643578538,2);
+
+insert into login values(1001,'1001');
+insert into login values(1002,'1002');
+insert into login values(1003,'1003');
+insert into login values(1004,'1004');
+insert into login values(1005,'1005');
+insert into login values(1006,'1006');
+insert into login values(1007,'1007');
+insert into login values(1008,'1008');
+insert into login values(1009,'1009');
+
+insert into staff values(1000040004,1009,60000);
+insert into staff values(1100040012,1005,55000);
+insert into staff values(1200040007,1002,65000);
+insert into staff values(1300040017,1008,60000);
+
+insert into student values(2018501004,1001,5);
+insert into student values(2018506017,1003,5);
+insert into student values(2018506034,1004,5);
+insert into student values(2018503074,1006,7);
+insert into student values(2018503014,1007,7);
+
+insert into department values(10,'Automobile','Lydia',1009,9643578538);
+insert into department values(11,'Computer Science','Chris',1005,9174628372);
+insert into department values(12,'Info Technology','Abinav',1002,9163781981);
+insert into department values(13,'Mechanical Engg','Stiles',1008,7252791229);
